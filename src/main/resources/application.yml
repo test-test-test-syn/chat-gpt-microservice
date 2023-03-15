@@ -4,14 +4,8 @@ server:
   servlet:
     context-path: /
 
-#  For Development
-#  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
-
-#  For Staging
-#  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
-
 openai-service:
-  api-key: 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
+  api-key: xxx
   gpt-model: gpt-3.5-turbo
   audio-model: whisper-1
   http-client:
