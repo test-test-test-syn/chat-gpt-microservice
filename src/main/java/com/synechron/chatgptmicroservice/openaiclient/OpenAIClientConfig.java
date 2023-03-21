@@ -34,6 +34,9 @@ public class OpenAIClientConfig {
     @Value("${openai-service.audio-model}")
     private String audioModel;
 
+    @Value("${openai-service.purpose}")
+    private String purpose;
+
     @Bean
     public Request.Options options() {
         return new Request.Options(getConnectTimeout(), getReadTimeout());

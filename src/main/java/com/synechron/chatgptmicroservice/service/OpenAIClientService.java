@@ -2,10 +2,7 @@ package com.synechron.chatgptmicroservice.service;
 
 
 import com.synechron.chatgptmicroservice.model.request.*;
-import com.synechron.chatgptmicroservice.model.response.ChatGPTImageResponse;
-import com.synechron.chatgptmicroservice.model.response.ChatGPTResponse;
-import com.synechron.chatgptmicroservice.model.response.ChatGPTTranscriptionResponse;
-import com.synechron.chatgptmicroservice.model.response.WhisperTranscriptionResponse;
+import com.synechron.chatgptmicroservice.model.response.*;
 import com.synechron.chatgptmicroservice.openaiclient.OpenAIClient;
 import com.synechron.chatgptmicroservice.openaiclient.OpenAIClientConfig;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +46,41 @@ public class OpenAIClientService {
         chatGPTTranscriptionResponse.setChatGPTResponse(chatGPTResponse);
         chatGPTTranscriptionResponse.setTextQuery(transcription.getText());
         return chatGPTTranscriptionResponse;
+    }
+
+
+
+    public FileMetaData uploadFile(FileRequest fileRequest) {
+        FileMetaData fileMetaData = openAIClient.uploadFile(fileRequest);
+        return fileMetaData;
+    }
+
+    public FileResponse getFiles() {
+        FileResponse fileResponse = openAIClient.getFiles();
+        return fileResponse;
+    }
+
+    public FineTuneResponse createFineTune(FineTuneRequest fineTuneRequest) {
+        System.out.println("Service called" + fineTuneRequest.getTraining_file());
+        FineTuneResponse fineTuneResponse = openAIClient.createFineTune(fineTuneRequest);
+        return fineTuneResponse;
+    }
+
+    public ChatGPTResponse createCompletion(ChatRequest chatRequest) {
+        Message message = Message.builder()
+                .role(ROLE_USER)
+                .content(chatRequest.getQuestion())
+                .build();
+//        ChatGPTCreateCompletionRequest request = ChatGPTCreateCompletionRequest.builder().model("text-davinci-002").prompt(message.getContent()).temperature(0.5).max_tokens(100).build();
+        ChatGPTCreateCompletionRequest chatGPTRequest = ChatGPTCreateCompletionRequest.builder()
+                .model(chatRequest.getModel())
+                .prompt(message.getContent())
+                .max_tokens(200)
+                .temperature(0.0)
+                .stop(".")
+                .build();
+        ChatGPTResponse response = openAIClient.createCompletion(chatGPTRequest);
+//        ChatGPTResponse response = openAIClient.createCompletion(request);
+        return response;
     }
 }

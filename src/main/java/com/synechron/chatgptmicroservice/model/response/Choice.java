@@ -12,4 +12,6 @@ public class Choice implements Serializable {
     private Message message;
     @JsonProperty("finish_reason")
     private String finishReason;
+    private String text;
+    private String logprobs;
 }

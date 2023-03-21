@@ -8,6 +8,7 @@ openai-service:
   api-key: ${API_KEY}
   gpt-model: gpt-3.5-turbo
   audio-model: whisper-1
+  purpose: fine-tune
   http-client:
     read-timeout: 30000
     connect-timeout: 30000
@@ -15,7 +16,10 @@ openai-service:
     base-url: https://api.openai.com/v1
     chat-url: /chat/completions
     image-url: /images/generations
+    file-url: /files
+    fine-tune-url: /fine-tunes
     create-transcription-url: /audio/transcriptions
+    create-completion-url: /completions
 
 logging:
   level:
