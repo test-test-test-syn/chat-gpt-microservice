@@ -10,4 +10,7 @@ public class ChatRequest implements Serializable {
     private String question;
     @JsonProperty("fine_tune_model")
     private String model;
+    private Integer max_tokens;
+    private Double temperature;
+    private String stop;
 }
