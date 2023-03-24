@@ -75,9 +75,9 @@ public class OpenAIClientService {
         ChatGPTCreateCompletionRequest chatGPTRequest = ChatGPTCreateCompletionRequest.builder()
                 .model(chatRequest.getModel())
                 .prompt(message.getContent())
-                .max_tokens(200)
-                .temperature(0.0)
-                .stop(".")
+                .max_tokens(chatRequest.getMax_tokens())
+                .temperature(chatRequest.getTemperature())
+                .stop(chatRequest.getStop())
                 .build();
         ChatGPTResponse response = openAIClient.createCompletion(chatGPTRequest);
 //        ChatGPTResponse response = openAIClient.createCompletion(request);
